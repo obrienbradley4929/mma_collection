@@ -1,0 +1,268 @@
+# Codex 实战系列｜零代码个人网站搭建
+
+> **系列**：Codex 实战系列（第 1 期）
+> **作者**：Miles Ma（@miles_mazy，认证账号）
+> **原文**：X 长文（Article） · https://x.com/miles_mazy/status/2095079179553505737
+> **发布时间**：2026-09-02 02:19（PDT）
+> **抓取时数据**：17 回复 · 82 转发 · 378 点赞 · 687 收藏 · 113.9K 阅读
+> **转录说明**：以下为原文全文转录（含图片与代码块的版式位置），图片已存档至 `assets/` 目录。原图外链见文末「媒体清单」。
+
+---
+
+![封面图：Codex 实战系列 | 零代码个人网站搭建 —— 个人网站搭建，AI CODING | WEB BUILDING | PRACTICE，三步流程 01 搭建框架 / 02 内容生成 / 03 风格上线，2026](assets/cover.webp)
+
+*（原文位置：文章封面图，5:2 宽幅标题卡）*
+
+---
+
+以前做网站，是程序员干的事情。
+
+现在用 Codex，一个人，30 分钟就可以搞定。
+
+在 Build in Public 的当下，个人主页比简历更好用，你的作品，你的项目都可以直观的展示在上面，网站这就是你的个人标签。
+
+先看我的成品：immilesma.com。首页有鼠标浮雕，往下是个人介绍、文章和服务。
+
+> 🎬 **视频**（原文位置：紧随上段，27 秒录屏，DemoGet 水印）
+> 展示作者 immilesma.com 首页：浮雕艺术字、鼠标移动效果，标语「让企业知识被 AI 找到、理解、调用，也能被人读懂。」
+> 本地文件：`assets/demo-video.mp4` · 封面：`assets/video-poster.jpg`
+> 原链：https://video.twimg.com/amplify_video/2095075428293840896/vid/avc1/1438x720/Tm4o1AUqnBJp5VqV.mp4?tag=29
+
+流程如下：
+
+买域名、注册账号 → Codex 看参考并做规划 → 放入个人内容，做出第一版 → 在浏览器里逐处修改 → 部署上线。
+
+![流程示意图：人物在桌前，个人资料/文章/图片/联系方式卡片经箭头流入浏览器中的首页模型，再经箭头指向地球仪（内容 → 网站 → 上线）](assets/img-01-workflow.jpg)
+
+*（原文位置：紧随「流程如下」段落，1980×792 流程插画）*
+
+## 1. 买一个域名，注册 Cloudflare
+
+打开 Spaceship，在搜索框里输入想要的名字和后缀。
+
+搜索结果出来后，看三处：名字能不能注册、当前价格是多少、右边哪个按钮加入购物车。首年价格和以后续费的价格可能不同，结算前再看一遍。
+
+![Spaceship 域名搜索结果标注截图：搜索 milesnotebook-demo.com，标注 ① 名字/可用性（可用 ¥59.74）、② 价格、③「加入购物车」按钮；顶部标题「只看清楚这一行，别急着买」](assets/img-02-spaceship-search.jpg)
+
+*（原文位置：第 1 节，Spaceship 搜索说明之后，1280×720 标注截图）*
+
+点「加入购物车」后，页面会推荐邮箱、建站工具和其他服务。附加服务都不选，直接点底部「继续」。
+
+![Spaceship「完善您的订单」附加服务弹窗标注截图：标注 ① 不要全部添加、② 不要点各项加号、③ 直接继续（指向「继续」按钮）](assets/img-03-spaceship-upsell.jpg)
+
+*（原文位置：第 1 节，「加入购物车」说明之后，1280×720 标注截图）*
+
+进入购物车，检查域名、年限和总价。到付款前停下，由本人确认后再购买。
+
+打开 Cloudflare，注册一个免费账号。填写邮箱和密码，完成人机验证，再点 Sign up。
+
+![Cloudflare 注册表单标注截图：标注 ① 邮箱输入框、② 密码输入框、③ 本人完成人机验证（复选框）、④ Sign up 按钮；顶部标题「Cloudflare 账号：注册由自己完成」](assets/img-04-cloudflare-signup.jpg)
+
+*（原文位置：第 1 节，Cloudflare 注册说明之后，1280×720 标注截图）*
+
+密码、验证码和支付信息都留在官方页面里，不要发给 Codex。域名买好，Cloudflare 账号注册好，先放在这里，等网站做完再用。
+
+## 2. 在 Codex 里新建一个网站项目
+
+先在电脑上新建一个文件夹，例如：
+
+```text
+my-homepage
+```
+
+打开 Codex，新建一个本地任务，选择这个文件夹。以后网页代码、文章和图片都放在这里，Codex 也会在这个目录里工作。
+
+把准备展示的内容放进去。刚开始可以这样整理：
+
+```text
+my-homepage/
+├── profile.md       个人介绍、服务和联系方式
+├── articles/        写过的文章
+├── images/          头像、文章封面和作品图片
+└── projects/        项目介绍和作品材料
+```
+
+profile.md 不用写得很正式，把名字、个人介绍、想展示的栏目、公开联系方式写进去即可。文章可以是 Markdown、Word 或 PDF，图片放进 images。
+
+材料放好后，让 Codex 先看一遍文件夹：
+
+> 📝 **发给 Codex 的提示词**：先检查这个项目里有哪些个人资料、文章和图片，告诉我哪些内容可以直接放进个人网站，哪些材料还缺。暂时不要写代码。
+
+Codex 会列出已有材料。缺头像就补头像，缺文章封面就补封面，不准备展示的文件先拿出去。
+
+## 3. 找一个参考网站，让 Codex 实际看一遍
+
+这里参考 Immersive Garden，主要看它的浅灰背景、留白、鼠标浮雕和滚动节奏。
+
+![Immersive Garden 官网首页截图：浅灰背景、白色雕塑花朵浮雕艺术字、IMMERSIVE GARDEN 标识、Innovative digital experiences studio](assets/img-05-immersive-garden.jpg)
+
+*（原文位置：第 3 节，Immersive Garden 介绍之后，1280×720 参考站截图）*
+
+把网址发给 Codex，让它使用 Computer Use 或应用内浏览器打开网站。先看首屏，再往下滚动，打开菜单，移动鼠标，点一遍主要按钮。
+
+这一轮只做分析，可以直接说：
+
+> 📝 **发给 Codex 的提示词**：用 Computer Use 打开这个网站，从首屏看到页面底部，把滚动、菜单、鼠标经过和主要按钮都试一遍。先整理页面结构、视觉风格、交互方式、需要的素材和制作顺序，不要开始写代码。
+
+等它看完，应该给出一份制作计划，里面至少有这些内容：
+
+- 首页先出现什么，往下还有哪些区域。
+- 背景、字体、留白、图片和卡片是什么风格。
+- 菜单、鼠标经过、滚动和按钮怎样变化。
+- 哪些内容可以用现有资料，哪些素材需要补。
+- 第一版先做哪几块，哪一处效果最费时间。
+
+如果当前 Codex 没有 Computer Use，就把网址、几张关键截图和一段操作录屏放进项目，同样让它先分析。
+
+## 4. 定下自己的版本，让 Codex 开始制作
+
+参考看完后，告诉 Codex 哪些地方保留，哪些地方换成自己的内容。
+
+页面保留浅灰背景、大面积留白、浮雕和鼠标反馈，内容换成这些：
+
+```text
+首页：Miles Ma、个人介绍、文章入口
+介绍：我在做什么、关注哪些方向
+文章：精选文章、全部文章、文章详情页
+服务：可以提供什么帮助
+联系：公开社交账号
+```
+
+让 Codex 按计划做第一版：
+
+> 📝 **发给 Codex 的提示词**：按已经确认的结构制作个人主页。使用项目里的文字和图片，先完成首页、文章入口和联系入口。保留参考站的留白、浮雕和鼠标反馈。完成后启动本地预览，用浏览器打开。
+
+Codex 会创建网页文件、安装组件并启动预览。这个项目使用 Vite，本地预览命令是：
+
+```bash
+npm run dev
+```
+
+如果你用的是一个全新的空文件夹，Codex 会先创建项目，再设置对应的预览命令。这里不用自己猜技术栈，等它完成后看浏览器里的页面。
+
+第一版先检查三件事：页面有没有正常打开，自己的文字和图片有没有放对，首页风格和参考方向是不是一致。方向错了就先改方向，不急着做后面的细节。
+
+## 5. 页面哪里不满意，就让 Codex 改哪里
+
+第一版打开后，从首页开始往下看。一次改一处，句子说清位置、问题和想要的结果。
+
+例如：
+
+- "首页中间的标题太大，缩小一点，其他位置不动。"
+- "鼠标经过时浮雕露得太少，把显露范围扩大，移开后慢一点收回。"
+- "文章封面被裁了，显示完整图片，卡片宽度不变。"
+- "右上角文章按钮不明显，加一圈细边框，颜色沿用现在的灰色。"
+
+Codex 改完会重新加载预览。你看过这一处，再改下一处。已经满意的部分直接说"这里保持不变"。
+
+如果使用应用内浏览器，可以打开批注模式，直接圈住标题、按钮或图片，再写一句修改要求。Codex 能知道你指的是页面上的哪一块。
+
+首页定下来后，再检查菜单、文章列表和正文。文章中心把封面、标题和摘要放在列表里，点进去阅读全文。
+
+![作者文章页截图（immilesma.com）：MM MILES MA 页眉、「FDE 与 AI 实战」标题、分类标签、搜索框，文章卡片「Agent 从入门到精通」「AI 培训」](assets/img-06-articles-page.jpg)
+
+*（原文位置：第 5 节，「首页定下来后」段落之后，1280×720 作者文章页截图）*
+
+按钮要自己点一遍：文章入口是否打开文章中心，文章卡片是否进入正文，返回首页是否正常，联系入口有没有去正确的账号。图片缺失或按钮没反应，就把当时点了哪里、看到了什么告诉 Codex，让它修完再试一次。
+
+## 6. 页面确认后，让 Codex 部署上线
+
+本地页面确认后，告诉 Codex 你已经注册了 Cloudflare，并把要使用的域名说清楚：
+
+> 📝 **发给 Codex 的提示词**：当前页面已经确认。请部署到已注册的 Cloudflare 账号，并使用指定域名。需要账号授权时打开官方页面，其他步骤继续完成。不要覆盖账号里的其他网站。部署后打开正式网址，检查首页、文章、图片和按钮。
+
+第一次连接账号时，Codex 会运行：
+
+```bash
+npx wrangler login
+```
+
+浏览器弹出 Cloudflare 授权页面后，由你确认账号。回到 Codex，它会继续设置项目。
+
+项目里已经写好部署脚本，最后执行：
+
+```bash
+npm run deploy
+```
+
+Codex 会先生成上线版本，再发布到对应的网站项目。发布完成后，让它接上域名，并打开 immilesma.com 检查最终页面。
+
+以后要修改首页，仍然是在原项目里完成：让 Codex 改一处，浏览器确认，再运行 `npm run deploy`。新的内容会更新到同一个网站。
+
+## 一个域名，还能继续放什么？
+
+主页上线后，不用每增加一种内容就重新买域名。可以在现有域名前面加一个名字，分出几个独立入口：
+
+```text
+immilesma.com          个人主页
+cv.immilesma.com       在线简历
+course.immilesma.com   课程
+tools.immilesma.com    小工具
+```
+
+> 🖼️ **图片 7**（原文位置：子域名代码块之后）
+> 课程宣传图：紫蓝渐变背景，「知识库驱动 长文创作」，STANLEY TEAM 2026.07。
+> 原图直链未在页面中提取到，查看页：https://x.com/miles_mazy/article/2095079179553505737/media/2095074964567388160
+
+> 🖼️ **图片 8**（原文位置：紧随图片 7）
+> 课程宣传图：深色背景配橙色几何图形，「企业 AI 培训课程 / 企业智能体系统实战 / 从知识库、代码知识库到 MCP、Harness 与私有运行底座 / 分享人：Miles 2026.07」，STANLEY TEAM。
+> 原图直链未在页面中提取到，查看页：https://x.com/miles_mazy/article/2095079179553505737/media/2095075056804413440
+
+cv、course 和 tools 都是子域名，日常也常叫二级域名。它们共用 immilesma.com，页面和用途可以分开。
+
+例如在线简历可以比主页更短，只放经历、项目和联系方式；工具页可以放自己做的小应用；课程入口可以放网页课件和课程资料。这些页面仍然可以交给 Codex 制作、修改和部署。
+
+课程不需要一套课建一个新入口。一个 course 子域名下面，可以用不同路径放多套课：
+
+```text
+course.immilesma.com/longform-system/
+course.immilesma.com/enterprise-agent-system/
+```
+
+以后再增加课程，就在 course.immilesma.com 下加一个新路径。再往前加一层，例如 ai.course.immilesma.com，属于嵌套更深的子域名，也有人叫三级域名。通常用一个子域名配不同路径就够了。
+
+## 总结
+
+- 先买好域名，注册 Cloudflare；
+- 再找一个喜欢的网站，让 Codex 用 Computer Use 看完整个页面，拆出结构、风格和交互。
+- 把个人介绍、文章、项目和图片放进文件夹，让 Codex 做出第一版，在浏览器里一处处看、一处处改。
+- 页面确认后，让它执行部署命令，把网站接到自己的域名。
+- 以后要增加在线简历、课程或工具，继续使用同一个项目和域名，通过子域名或新路径往里添加即可。
+
+我是 Miles，一名从大厂转型 FDE 的 AI 算法专家，做过算法研发、优化部署，也做过企业培训、落地交付。关注我 @miles_mazy ， 一起成长，一起赚钱 。
+
+![作者个人品牌横幅：卡通人物手持剪贴板站在等距科技图标中（AI MODEL 立方体、服务器机架、课堂白板），文字「Miles / AI 算法专家 × FDE / 企业 AI 培训 · 落地 · 部署」，蓝色「关注我」按钮](assets/img-09-branding-banner.webp)
+
+*（原文位置：文末，作者简介之后）*
+
+---
+
+## 附：文中提到的外部链接
+
+- 作者网站：https://immilesma.com/
+- 域名注册：https://www.spaceship.com/
+- Cloudflare：https://dash.cloudflare.com/
+- 参考网站：https://immersive-g.com/
+
+## 附：媒体清单（共 11 项，按原文出现顺序）
+
+| # | 类型 | 原文位置 | 本地文件 | 原始链接 |
+|---|------|----------|----------|----------|
+| 封面 | 图片 | 文章开头 | `assets/cover.webp` | https://pbs.twimg.com/media/HRM3C1CasAAIdB2?format=webp&name=medium |
+| — | 视频 | 「先看我的成品」段后 | `assets/demo-video.mp4`（封面 `assets/video-poster.jpg`） | https://video.twimg.com/amplify_video/2095075428293840896/vid/avc1/1438x720/Tm4o1AUqnBJp5VqV.mp4?tag=29 |
+| 1 | 图片 | 「流程如下」段后 | `assets/img-01-workflow.jpg` | https://pbs.twimg.com/media/HRMzfBha8AA5ADr.jpg |
+| 2 | 图片 | 第 1 节 | `assets/img-02-spaceship-search.jpg` | https://pbs.twimg.com/media/HRMzgv5aUAAAVYC.jpg |
+| 3 | 图片 | 第 1 节 | `assets/img-03-spaceship-upsell.jpg` | https://pbs.twimg.com/media/HRMzhrpbcAAW0s4.jpg |
+| 4 | 图片 | 第 1 节 | `assets/img-04-cloudflare-signup.jpg` | https://pbs.twimg.com/media/HRMzirTasAAfYAf.jpg |
+| 5 | 图片 | 第 3 节 | `assets/img-05-immersive-garden.jpg` | https://pbs.twimg.com/media/HRMzjmGbAAAgYxW.jpg |
+| 6 | 图片 | 第 5 节 | `assets/img-06-articles-page.jpg` | https://pbs.twimg.com/media/HRMzkfQaIAAsxT0.jpg |
+| 7 | 图片 | 子域名章节 | （直链未提取，仅存档描述） | 查看页：https://x.com/miles_mazy/article/2095079179553505737/media/2095074964567388160 |
+| 8 | 图片 | 子域名章节 | （直链未提取，仅存档描述） | 查看页：https://x.com/miles_mazy/article/2095079179553505737/media/2095075056804413440 |
+| 9 | 图片 | 文末作者简介后 | `assets/img-09-branding-banner.webp` | https://pbs.twimg.com/media/HRMzlIDacAA7zST |
+
+---
+
+## 系列导航
+
+- 上一篇：无（本系列第 1 期）
+- 下一篇：[第 2 期 孙哥同款：从 0 到 1 搭建 AI 财务决策系统](../tutorial-02-ai-finance-system/tutorial-02-ai-finance-system.md)
